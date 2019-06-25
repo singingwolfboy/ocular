@@ -89,7 +89,13 @@ module.exports = function getGatsbyConfig(config) {
         }
         */
       },
-
+      {
+        resolve: "gatsby-plugin-styletron",
+        options: {
+          // You can pass options to Styletron.
+          prefix: "_",
+        },
+      },
       /*
       // Bring Google Fonts to Gatsby.
       {

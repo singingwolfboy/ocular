@@ -3,7 +3,8 @@
 // each page using the gatsby browser/SSR `wrapPage` callback.
 
 import React from 'react';
-import {lightThemePrimitives, createTheme} from '../styled/theme';
+import {createTheme, LightThemePrimitives, BaseProvider} from 'baseui';
+
 import SiteQuery from '../site-query';
 import TopLevelLayout from './top-level-layout';
 
@@ -29,17 +30,19 @@ export default class Layout extends React.Component {
       {}
     );
 
-    const theme = createTheme({...lightThemePrimitives, ...themeFromConfig});
+    const theme = createTheme({...LightThemePrimitives, ...themeFromConfig});
     return (
-      <TopLevelLayout
-        {...this.props}
-        config={config}
-        tableOfContents={tableOfContents}
-        allMarkdown={allMarkdown}
-        theme={theme}
-      >
-        <div style={{position: 'relative', height: '100%'}}>{children}</div>
-      </TopLevelLayout>
+      <BaseProvider theme={theme}>
+        <TopLevelLayout
+          {...this.props}
+          config={config}
+          tableOfContents={tableOfContents}
+          allMarkdown={allMarkdown}
+          theme={theme}
+        >
+          <div style={{position: 'relative', height: '100%'}}>{children}</div>
+        </TopLevelLayout>
+      </BaseProvider>
     );
   }
 
