@@ -31,13 +31,13 @@
   },
   "peerDependenciesComment": "Ensures website is using compatible version of gatsby",
   "peerDependencies": {
-    "gatsby": "^2.3.0",
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0",
+    "gatsby": "^2.10.5",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
     "sharp": "0.22.1"
   },
   "dependencies": {
-    "baseui": "^7.7.0",
+    "baseui": "^7.8.0",
     "classnames": "^2.2.6",
     "gatsby-cli": "^2.5.7",
     "gatsby-image": "^2.0.38",
@@ -86,6 +86,8 @@
     "slug": "^0.9.3",
     "stats.js": "^0.17.0",
     "styled-components": "^4.1.0",
+    "styletron-engine-atomic": "^1.4.0",
+    "styletron-react": "^5.2.0",
     "url-join": "^4.0.0",
     "validate.js": "^0.12.0"
   },

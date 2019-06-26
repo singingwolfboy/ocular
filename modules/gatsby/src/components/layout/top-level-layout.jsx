@@ -5,6 +5,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import MediaQuery from 'react-responsive';
+import {BaseProvider} from 'baseui';
 
 import {WebsiteConfigProvider} from './website-config';
 
@@ -164,7 +165,7 @@ export default class Layout extends React.Component {
       <WebsiteConfigProvider
         value={{config, theme, tableOfContents, allMarkdown}}
       >
-        <div>
+        <BaseProvider theme={theme}>
           {allMarkdown ? (
             <SEO postEdges={allMarkdown} />
           ) : (
@@ -175,7 +176,7 @@ export default class Layout extends React.Component {
           {pageContext.toc
             ? this.renderBodyWithTOC(config, tableOfContents)
             : this.renderBodyFull(config)}
-        </div>
+        </BaseProvider>
       </WebsiteConfigProvider>
     );
   }

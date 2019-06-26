@@ -4,7 +4,6 @@ import {graphql} from 'gatsby';
 import {AutoSizer} from 'react-virtualized';
 
 import {MainExample} from '../components/styled';
-import WithConfig from '../components/layout/website-config';
 import ExampleRunner from '../components/example-runner';
 
 /* eslint no-undef: "off" */
@@ -26,8 +25,8 @@ export const query = graphql`
 
 export default class ExampleTemplate extends React.Component {
   render() {
-    const {pathContext, pageResources} = this.props;
-    const {slug} = pathContext;
+    const {pageContext, pageResources} = this.props;
+    const {slug} = pageContext;
 
     // Get app website's example runner
     const EXAMPLES = getExamples();
@@ -36,30 +35,27 @@ export default class ExampleTemplate extends React.Component {
       console.warn(`No example found: ${slug}`);
     }
     // console.log(example);
-
     return (
-      <WithConfig>
-        {({theme}) => (
-          <MainExample theme={theme}>
-            <AutoSizer>
-              {({height, width}) =>
-                example && (
-                  <ExampleRunner
-                    height={height}
-                    example={example}
-                    sourceLink={
-                      pageResources &&
-                      pageResources.page &&
-                      pageResources.page.path
-                    }
-                    width={width}
-                  />
-                )
-              }
-            </AutoSizer>
-          </MainExample>
-        )}
-      </WithConfig>
+      <MainExample>
+        <AutoSizer>
+          {({height, width}) => (
+            <div id="example-runner">
+              {example && (
+                <ExampleRunner
+                  height={height}
+                  example={example}
+                  sourceLink={
+                    pageResources &&
+                    pageResources.page &&
+                    pageResources.page.path
+                  }
+                  width={width}
+                />
+              )}
+            </div>
+          )}
+        </AutoSizer>
+      </MainExample>
     );
   }
 }

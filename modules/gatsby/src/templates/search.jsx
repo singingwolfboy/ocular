@@ -27,13 +27,13 @@ export default class SearchPage extends React.Component {
 
   findResults(currentQuery) {
     const {lastQuery} = this.state;
-    const {pathContext} = this.props;
+    const {pageContext} = this.props;
     this.setState({debouncing: false});
     if (currentQuery === lastQuery) {
       return;
     }
     const results = currentQuery
-      ? pathContext.data.filter(
+      ? pageContext.data.filter(
           node =>
             (node.title && node.title.match(currentQuery)) ||
             (node.rawMarkdownBody && node.rawMarkdownBody.match(currentQuery))
@@ -51,7 +51,7 @@ export default class SearchPage extends React.Component {
   renderPage() {
     // Note: The Layout "wrapper" component adds header and footer etc
     const {debouncing, results, currentQuery} = this.state;
-    const {pathContext} = this.props;
+    const {pageContext} = this.props;
     return (
       <WithConfig>
         {({theme}) => (
@@ -85,8 +85,8 @@ export default class SearchPage extends React.Component {
 
                 {!currentQuery && !debouncing && (
                   <div>
-                    {pathContext.data
-                      ? `${pathContext.data.length} articles indexed.`
+                    {pageContext.data
+                      ? `${pageContext.data.length} articles indexed.`
                       : ''}
                   </div>
                 )}
