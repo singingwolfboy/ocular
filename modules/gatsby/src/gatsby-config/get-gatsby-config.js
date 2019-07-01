@@ -124,13 +124,6 @@ module.exports = function getGatsbyConfig(config) {
             // Using the 'blur up' technique popularized by Medium and Facebook where a small
             // 20px wide version is shown as placeholder until actual image is downloaded.
             {
-              resolve: 'gatsby-plugin-styletron',
-              options: {
-                // You can pass options to Styletron.
-                prefix: '_'
-              }
-            },
-            {
               resolve: 'gatsby-remark-images',
               options: {
                 maxWidth: 690

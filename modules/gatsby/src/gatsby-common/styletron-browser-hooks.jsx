@@ -7,19 +7,26 @@
 // between page changes
 
 const React = require(`react`);
+const {Provider, DebugEngine} = require('styletron-react');
 
 const Layout = require('../components/layout/layout').default;
-const Styletron = require('styletron-engine-atomic').Client;
-const StyletronProvider = require('styletron-react').Provider;
+const Styletron = require('./styletron');
 
-const engine = new Styletron();
+
+const debug = process.env.NODE_ENV === 'production' ? void 0 : new DebugEngine();
 
 // eslint-disable-next-line react/prop-types, react/display-name
-module.exports = ({element, props}) => {
+module.exports = ({element}, options) => {
+  const enableDebug = 
+    options.debug === true || typeof options.debug === 'undefined';
+
   return (
-    <StyletronProvider value={engine}>
-      <Layout {...props}>{element}</Layout>
-    </StyletronProvider>
+    <Provider value={styletron(options).instance}
+    debug={enableDebug ? debug : undefined}
+    debugAfterHydration={enableDebug}
+    >
+      <Layout>{element}</Layout>
+    </Provider>
   );
 };
 
