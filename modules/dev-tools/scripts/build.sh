@@ -5,10 +5,11 @@ set -e
 DEV_TOOLS_DIR=`node -e "require('ocular-dev-tools/node/module-dir')()"`
 CONFIG=`node $DEV_TOOLS_DIR/node/get-config.js ".babel.configPath"`
 MODULES=`node $DEV_TOOLS_DIR/node/get-config.js ".modules" | jq -r 'join(" ")'`
+DISTS=`node $DEV_TOOLS_DIR/node/get-config.js ".dists" | jq -r 'join(",")'`
 
 check_target() {
   if [[ ! "$1" =~ ^es5|es6|esm ]]; then
-    echo -e "\033[91mUnknown build target $1. ocular-build [--dist es5|es6|esm,...] [module1,...]\033[0m"
+    echo -e "\033[91mUnknown build target $1. ocular-build [--dists es5|es6|esm,...] [module1,...]\033[0m"
     exit 1
   fi
 }
@@ -39,11 +40,11 @@ build_monorepo() {
   while [ -n "$1" ]; do
     if [[ "$1" =~ ^\-\-[A-Za-z]+ ]]; then
       case "$1" in
-        --dist)
-            TARGET=$2
+        --dists)
+            DISTS=$2
             shift ;;
         *)
-            echo -e "\033[91mUnknown option $1. ocular-build [--dist es5|es6|esm,...] [module1,...]\033[0m"
+            echo -e "\033[91mUnknown option $1. ocular-build [--dists es5|es6|esm,...] [module1,...]\033[0m"
             exit 1 ;;
       esac
     else
@@ -63,7 +64,7 @@ build_monorepo() {
     if [ -e "${D}/package.json" ]; then
       echo -e "\033[1mBuilding $D\033[0m"
       cd $D
-      build_module `echo $TARGET | sed -e 's/,/ /g'`
+      build_module `echo $DISTS | sed -e 's/,/ /g'`
       echo ""
     elif [ ! -e "${D}" ]; then
       echo -e "\033[1mWarning: skipping $D because it doesn't match any file.\033[0m"
